@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//chinese-fonts-cdn.deno.dev/packages/lxgwwenkai/dist/LXGWWenKai-Regular/result.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --background-color: #f5f6fa;
+            --card-background: #ffffff;
+            --text-color: #2c3e50;
+            --code-background: #f8f9fa;
+        }
+
+        body {
+            font-family: 'LXGW WenKai', sans-serif;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-background);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.5em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 4px;
+        }
+
+        .code-block {
+            background-color: var(--code-background);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: monospace;
+            margin: 15px 0;
+        }
+
+        .note {
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 15px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Python装饰器模式详解</h1>
+            
+            <h2>什么是装饰器？</h2>
+            <p>装饰器是Python中的一种高级设计模式，它允许我们在不修改原有函数代码的情况下，为其添加新的功能。装饰器本质上是一个<span class="highlight">接收函数并返回函数的高阶函数</span>。</p>
+
+            <h2>基本语法</h2>
+            <div class="code-block">
+def my_decorator(func):
+    def wrapper():
+        print("Something happens before the function is called.")
+        func()
+        print("Something happens after the function is called.")
+    return wrapper
+
+@my_decorator
+def say_hello():
+    print("Hello!")</div>
+
+            <h2>常见应用场景</h2>
+            <ul>
+                <li>函数执行时间统计</li>
+                <li>访问控制和认证</li>
+                <li>日志记录</li>
+                <li>缓存机制</li>
+                <li>参数验证</li>
+            </ul>
+
+            <div class="note">
+                <p>装饰器是Python中最优雅的设计模式之一，它体现了Python的简洁性和灵活性。掌握装饰器的使用可以让你的代码更加简洁、可维护。</p>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>带参数的装饰器示例</h2>
+            <div class="code-block">
+def repeat(times):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            for _ in range(times):
+                result = func(*args, **kwargs)
+            return result
+        return wrapper
+    return decorator
+
+@repeat(times=3)
+def greet(name):
+    print(f"Hello {name}")</div>
+            
+            <div class="note">
+                <p>注意：使用装饰器可能会影响函数的元信息（如__name__，__doc__等）。可以使用functools.wraps来保留这些信息。</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
